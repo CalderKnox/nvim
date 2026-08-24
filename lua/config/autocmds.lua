@@ -9,7 +9,7 @@
 -- A timeout of 300ms ensures the highlight doesn't persist too long.
 --
 
-vim.api.nvim_create_autocmd('TextYankPost', {
+vim.api.vim_create_autocmd('TextYankPost', {
     callback = function()
         vim.highlight.on_yank({ timeout = 300, higroup = 'IncSearch' })
     end
