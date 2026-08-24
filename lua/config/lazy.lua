@@ -1,3 +1,8 @@
+-- Lazy.nvim Configuration
+-- This file configures lazy.nvim, the Neovim plugin manager.
+-- It sets up plugin loading, defaults, installation, and update checking.
+
+-- Bootstrap lazy.nvim if not already installed
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
     local lazyrepo = "https://github.com/folke/lazy.nvim.git"
@@ -14,35 +19,53 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- Plugin specification setup
 require("lazy").setup({
+    -- Specify plugins to load
     spec = {
-        -- add LazyVim and import its plugins
+        -- Add LazyVim and import its default plugins
         { "LazyVim/LazyVim", import = "lazyvim.plugins" },
-        -- import/override with your plugins
+        -- Import/override with your custom plugins
         { import = "plugins" },
     },
+
+    -- Default settings for all plugins
     defaults = {
-        -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
-        -- If you know what you're doing, you can set this to `true` to have all your custom plugins lazy-loaded by default.
+        -- By default, only LazyVim plugins will be lazy-loaded.
+        -- Your custom plugins will load during startup.
+        -- Set to `true` to have all custom plugins lazy-loaded by default.
         lazy = false,
-        -- It's recommended to leave version=false for now, since a lot the plugin that support versioning,
-        -- have outdated releases, which may break your Neovim install.
+        -- It's recommended to leave version=false for now, since a lot the plugin
+        -- that support versioning, have outdated releases, which may break your
+        -- Neovim install.
         version = false, -- always use the latest git commit
-        -- version = "*", -- try installing the latest stable version for plugins that support semver
+        -- version = "*", -- try installing the latest stable version for plugins
+        -- that support semver
     },
-    install = { colorscheme = { "tokyonight", "habamax" } },
+
+    -- Plugin installation settings
+    install = {
+        -- Automatically install colorschemes when LazyVim starts
+        colorscheme = { "tokyonight", "habamax" },
+    },
+
+    -- Plugin update checking
     checker = {
-        enabled = true, -- check for plugin updates periodically
-        notify = false, -- notify on update
-    },                  -- automatically check for plugin updates
+        -- Enable or disable automatic plugin update checking
+        enabled = true,
+        -- Notify on update (set to false to disable notifications)
+        notify = false,
+    }, -- automatically check for plugin updates
+
+    -- Performance settings
     performance = {
+        -- Disable some built-in RTP plugins for improved startup speed
         rtp = {
-            -- disable some rtp plugins
             disabled_plugins = {
-                "gzip",
-                -- "matchit",
-                -- "matchparen",
-                -- "netrwPlugin",
+                -- "gzip",         -- Compression plugin
+                -- "matchit",      -- Matchit plugin for :%s
+                -- "matchparen",   -- Match paren highlighting
+                -- "netrwPlugin",  -- Netrw plugin
                 "tarPlugin",
                 "tohtml",
                 "tutor",
