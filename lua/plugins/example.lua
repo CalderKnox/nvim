@@ -134,7 +134,7 @@ return {
     -- },
 
     -- Or use the LazyVim extra for typescript
-    { import = "lazyvim.plugins.extras.lang.typescript" },
+    -- { import = "lazyvim.plugins.extras.lang.typescript" },
 
     -- ============================================================================
     -- Add more treesitter parsers
@@ -211,14 +211,14 @@ return {
     -- Add jsonls and schemastore packages
     -- ============================================================================
     -- Setup treesitter for json, json5 and jsonc
-    { import = "lazyvim.plugins.extras.lang.json" },
+    -- { import = "lazyvim.plugins.extras.lang.json" },
 
     -- ============================================================================
     -- Add tools you want to have installed
     -- ============================================================================
     -- Mason setup for LSP/dap/tools installers
     {
-        "williamboman/mason.nvim",
+        "mason-org/mason.nvim",
         opts = {
             ensure_installed = {
                 "stylua",           -- Lua formatter
