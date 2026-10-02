@@ -10,9 +10,9 @@
 --
 
 vim.api.nvim_create_autocmd('TextYankPost', {
-    callback = function()
-        vim.highlight.on_yank({ timeout = 300, higroup = 'IncSearch' })
-    end
+  callback = function()
+    vim.highlight.on_yank({ timeout = 300, higroup = 'IncSearch' })
+  end
 })
 
 --
@@ -24,11 +24,11 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 
 vim.api.nvim_create_autocmd("VimResized", {
-    group = vim.api.nvim_create_augroup("ResizeWindows", { clear = true }),
-    pattern = "*",
-    callback = function()
-        vim.cmd("tabdo wincmd =")
-    end
+  group = vim.api.nvim_create_augroup("ResizeWindows", { clear = true }),
+  pattern = "*",
+  callback = function()
+    vim.cmd("tabdo wincmd =")
+  end
 })
 
 --
@@ -37,11 +37,11 @@ vim.api.nvim_create_autocmd("VimResized", {
 -- When entering insert mode, cursorline is disabled; when leaving, it's re-enabled.
 -- This prevents the cursor line from being highlighted while typing.
 vim.api.nvim_create_autocmd({ "InsertEnter", "InsertLeave" }, {
-    group = vim.api.nvim_create_augroup("HighlightCursorLine", { clear = true }),
-    pattern = "*",
-    callback = function(ev)
-        vim.opt.cursorline = (ev.event == "InsertLeave")
-    end
+  group = vim.api.nvim_create_augroup("HighlightCursorLine", { clear = true }),
+  pattern = "*",
+  callback = function(ev)
+    vim.opt.cursorline = (ev.event == "InsertLeave")
+  end
 })
 
 --
@@ -49,13 +49,13 @@ vim.api.nvim_create_autocmd({ "InsertEnter", "InsertLeave" }, {
 -- Apply Python-specific indentation when FileType is "python".
 -- Sets tabstop to 4 spaces, shiftwidth to 4, and uses expandtab for spaces.
 vim.api.nvim_create_autocmd("FileType", {
-    group = vim.api.nvim_create_augroup("FileTypeSettings", { clear = true }),
-    pattern = "python",
-    callback = function()
-        vim.opt_local.tabstop = 4
-        vim.opt_local.shiftwidth = 4
-        vim.opt_local.expandtab = true
-    end
+  group = vim.api.nvim_create_augroup("FileTypeSettings", { clear = true }),
+  pattern = "python",
+  callback = function()
+    vim.opt_local.tabstop = 4
+    vim.opt_local.shiftwidth = 4
+    vim.opt_local.expandtab = true
+  end
 })
 
 --
@@ -66,10 +66,10 @@ vim.api.nvim_create_autocmd("FileType", {
 --
 
 vim.api.nvim_create_autocmd("BufWritePre", {
-    group = vim.api.nvim_create_augroup("FormatOnSave", { clear = true }),
-    pattern = { "*.lua", "*.py", "*.js" }, -- Only applies to specific file types
-    callback = function()
-        -- If using LSP formatting functionality
-        vim.lsp.buf.format({ async = false })
-    end
+  group = vim.api.nvim_create_augroup("FormatOnSave", { clear = true }),
+  pattern = { "*.lua", "*.py", "*.js" }, -- Only applies to specific file types
+  callback = function()
+    -- If using LSP formatting functionality
+    vim.lsp.buf.format({ async = false })
+  end
 })
