@@ -26,8 +26,9 @@ require("lazy").setup({
     -- Specify plugins to load
     spec = {
         -- Add LazyVim and import its default plugins
-        { "LazyVim/LazyVim",                                import = "lazyvim.plugins" },
+        { "LazyVim/LazyVim", import = "lazyvim.plugins" },
         { import = "lazyvim.plugins.extras.lang.typescript" },
+        { import = "lazyvim.plugins.extras.lang.typescript.biome" },
         { import = "lazyvim.plugins.extras.lang.json" },
         { import = "lazyvim.plugins.extras.lang.python" },
         { import = "lazyvim.plugins.extras.lang.rust" },

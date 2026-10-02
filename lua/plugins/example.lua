@@ -223,9 +223,9 @@ return {
                 "stylua",           -- Lua formatter
                 "shellcheck",       -- Shell script checker
                 "shfmt",            -- Shell script formatter
+                "biome",            -- JS LSP
                 "ruff",             -- Python formatter
                 "pyright",          -- Python LSP
-                -- "prettier",       -- JS formatter (enable if needed)
             },
         },
     },
