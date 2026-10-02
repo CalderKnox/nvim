@@ -86,8 +86,7 @@ return {
         opts = {
             ---@type lspconfig.options
             servers = {
-                -- pyright will be automatically installed with mason and loaded with lspconfig
-                pyright = {},
+                pyrefly = { enable = true },
             },
         },
     },
@@ -224,7 +223,8 @@ return {
                 "stylua",           -- Lua formatter
                 "shellcheck",       -- Shell script checker
                 "shfmt",            -- Shell script formatter
-                "flake8",           -- Python formatter
+                "ruff",             -- Python formatter
+                "pyright",          -- Python LSP
                 -- "prettier",       -- JS formatter (enable if needed)
             },
         },
