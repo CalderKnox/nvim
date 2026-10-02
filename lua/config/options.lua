@@ -54,6 +54,6 @@ vim.opt.termguicolors = true                  -- Enable 24-bit RGB colors in the
 -- Enables true color support (24-bit RGB) which is required for many colorschemes
 -- to display colors correctly in the terminal.
 
-vim.opt.colorcolumn = "100"                   -- Line length marker at 100 columns
+vim.opt.colorcolumn = "120"                   -- Line length marker at 120 columns
 -- Highlights column 100 to serve as a visual marker for line length limits,
 -- helping to keep code within a reasonable width.
