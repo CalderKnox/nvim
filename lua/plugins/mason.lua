@@ -9,6 +9,10 @@
 
   注意：名称必须是 mason-registry 中存在的包。不存在的包会让 LazyVim 的
         mr.get_package() 抛错，整段 mason config 失败，后续 ensure/自动安装全部中断。
+
+  已由 LazyVim / extras 覆盖、故不在此重复：
+  - stylua / shfmt（LazyVim core mason ensure）
+  - shellcheck / bashls（util.dot extra）
 ]]
 
 return {
@@ -17,15 +21,10 @@ return {
     opts = {
       ensure_installed = {
         -- Lua
-        "stylua", -- Lua 格式化（配合本仓库 stylua.toml / LazyVim Lua 格式化）
-        "luacheck", -- Lua 静态检查
-        -- Shell
-        "shellcheck", -- Shell 脚本静态检查
-        "shfmt", -- Shell 脚本格式化
-        "bash-language-server", -- Shell 语言服务器
+        "luacheck", -- Lua 静态检查（core 只保 stylua）
         -- Python
         "ruff", -- Python 静态检查
-        "pyright", -- Python 类型检查
+        "pyrefly", -- Python 类型检查（备用；LSP 选型见 lazyvim_python_lsp）
         "debugpy", -- Python DAP（提供 debugpy-adapter，供 nvim-dap-python 使用）
         -- JavaScript / TypeScript / JSON / YAML
         "biome",
@@ -45,8 +44,6 @@ return {
         -- Rust（rustfmt 不在 mason registry，用 rustup component）
         "rust-analyzer", -- Rust 语言服务器
         "codelldb", -- Rust 调试器
-        -- Java
-        "jdtls", -- Java 语言服务器
       },
     },
   },
