@@ -43,8 +43,8 @@ require("lazy").setup({
     -- version = "*", -- try installing the latest stable version for plugins that support semver
   },
   install = {
-    -- 首次安装/缺少配色时优先尝试 catppuccin，避免短暂无主题白屏
-    colorscheme = { "catppuccin" },
+    -- 首次安装/缺少配色时优先 catppuccin，回退 habamax，避免短暂无主题白屏
+    colorscheme = { "catppuccin", "habamax" },
   },
   checker = {
     enabled = true, -- 后台周期性检查插件更新
