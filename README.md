@@ -4,10 +4,8 @@
 
 ## Overview
 
-This is a Neovim configuration based on LazyVim, designed to provide a modern,
-highly customizable editor experience with sensible defaults and a great out-of-the-box
-setup. This configuration has been enhanced with comprehensive comments and
-documentation throughout the codebase.
+Neovim configuration based on LazyVim with catppuccin, blink.cmp, Snacks picker,
+and language extras for TypeScript (biome), Python (pyrefly), Rust, Go, and more.
 
 ## Installation
 
@@ -17,83 +15,57 @@ documentation throughout the codebase.
 mv ~/.config/nvim ~/.config/nvim.bak
 ```
 
-1. **Clone this repository**:
+2. **Clone this repository**:
 
 ```bash
-git clone https://github.com/CalderKnox/nvim.git ~/.config/nvim
+git clone https://github.com/azwpayne/nvim.git ~/.config/nvim
 ```
 
-2. **Start Neovim**:
+3. **Start Neovim**:
    The first launch will automatically install plugins and set up the configuration.
+   After pulling config changes, run `:Lazy sync` (and `:Lazy clean` if plugins were removed).
 
 ## Features
 
-### Default Plugins & Configuration
+### Core
 
-- **lazy.nvim** - Modern Neovim plugin manager
-- **LazyVim** - Batteries-included Neovim distribution
-- **Treesitter** - Language syntax highlighting and more
-- **nvim-lspconfig** - Language server protocol configuration
-- **telescope** - Fuzzy finder for files, grep, and more
-- **lualine** - Status line plugin
-- **which-key** - Keybinding popup helper
-- **indent-blankline** - Visual indentation guides
+- **lazy.nvim** — plugin manager
+- **LazyVim** — batteries-included Neovim distribution
+- **catppuccin** — colorscheme
+- **blink.cmp** — completion (LazyVim default)
+- **Snacks picker** — fuzzy finder (LazyVim default; replaces Telescope)
+- **Treesitter** — syntax highlighting
+- **mason.nvim** — LSP/tool installer (also ensures stylua, shellcheck, shfmt)
+- **which-key** — keybinding popup helper
+- **lualine** — status line
 
-### Enhanced Configuration
+### Language extras (`lazyvim.json`)
 
-This configuration now includes:
-- Comprehensive JSDoc-style comments in all Lua config files
-- Detailed keymap descriptions with usage context
-- Well-documented autocmd groups and their purposes
-- Clear option explanations for easy customization
+typescript (+ biome), json, python (pyrefly), rust, go, cmake, docker, yaml, markdown
 
-### Key Mappings
+### Custom keymaps
 
-| Keymap            | Description                  |
-| ----------------- | ---------------------------- |
-| `<leader>u`       | Toggle Undotree              |
-| `<leader><space>` | Clear search highlights      |
-| `<leader>sv`      | Split window vertically      |
-| `<leader>sh`      | Split window horizontally    |
-| `<leader>bd`      | Close current buffer         |
-| `<leader>f`       | Format code with LSP         |
-| `<leader>rl`      | Toggle relative line numbers |
+| Keymap | Description        |
+| ------ | ------------------ |
+| `jk`   | Exit insert mode   |
 
-### Built-in Settings
+LazyVim defaults (buffer, file, search, UI, etc.) are unchanged.
 
-- **Line numbers**: Relative line numbers with absolute current line
-- **Tab completion**: 4-space tabs with smart indentation
-- **Clipboard**: System clipboard integration
-- **Search**: Smart case-insensitive searching with incremental highlighting
-- **Colors**: True color support (24-bit RGB)
+### Local deltas (`lua/config/options.lua`)
 
-### Plugin Highlights
-
-- **nvim-cmp**: Autocompletion with emoji support
-- **trouble.nvim**: Diagnostic visualization
-- **mason.nvim**: LSP/DAP/package installer
-- **nvim-tree**: File explorer (if enabled)
-- **gitsigns**: Git signs in the sign column
+- `scrolloff = 8`
+- `colorcolumn = "120"`
+- `showmatch = true`
+- `vim.g.lazyvim_python_lsp = "pyrefly"`
+- `vim.g.lazyvim_prettier_needs_config = true` (prefer biome when no prettier config)
+- Tabs/indent default to LazyVim (2 spaces); Python files use 4 via autocmd
 
 ### Customization
 
-#### Adding Plugins
-
-Add your plugins to `lua/plugins/example.lua` or create new files in the
-`lua/plugins/` directory. The config already includes:
-
-- Plugin imports from `lazyvim.plugins`
-- Custom plugin imports from `plugins`
-
-#### Modifying Options
-
-Edit `lua/config/options.lua` for global options, or use LazyVim's `opts`
-field in your plugin specs.
-
-#### Key Mappings
-
-Add custom keymaps in `lua/config/keymaps.lua`. The file is loaded after
-default LazyVim keymaps, so you can override or extend them.
+- Plugins: add specs under `lua/plugins/` (see `colorscheme.lua`, `mason.lua`)
+- Options: `lua/config/options.lua`
+- Keymaps: `lua/config/keymaps.lua`
+- Autocmds: `lua/config/autocmds.lua`
 
 ## License
 
