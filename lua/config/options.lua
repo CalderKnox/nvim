@@ -11,10 +11,7 @@
 -- 在打开 Python 相关缓冲区、LazyVim 装配 LSP 时生效。
 vim.g.lazyvim_python_lsp = "pyrefly"
 
--- 没有项目级 Prettier 配置时，不强制启用 prettier，从而更倾向 typescript.biome extra。
--- 动机：避免无配置项目被 prettier 抢占格式化；有 prettier 配置的项目仍可正常使用。
-vim.g.lazyvim_prettier_needs_config = true
-
 vim.opt.scrolloff = 8 -- 光标上下至少保留 8 行可视区域，滚动时不易贴边
 vim.opt.colorcolumn = "120" -- 在第 120 列画参考线，提示行宽约束（不强制换行）
 vim.opt.showmatch = true -- 输入闭合括号时短暂跳到匹配括号，辅助核对配对
+vim.opt.modeline = false -- 禁用 modeline，避免不可信文件通过 modeline 改选项（安全）
