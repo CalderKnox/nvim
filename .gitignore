@@ -4,8 +4,6 @@ debug
 .repro
 foo.*
 data
-lazyvim.json
-lazy-lock.json
 .neoconf.json
 **/*.log
 

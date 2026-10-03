@@ -1,8 +1,15 @@
--- Lazy.nvim Configuration
--- This file configures lazy.nvim, the Neovim plugin manager.
--- It sets up plugin loading, defaults, installation, and update checking.
+--[[
+  lazy.nvim 引导与插件管理入口
 
--- Bootstrap lazy.nvim if not already installed
+  作用：确保 lazy.nvim 已安装，并将其加入 runtimepath，再调用 setup 加载
+        LazyVim 发行版插件与本地 lua/plugins/ 下的自定义插件规格。
+  加载时机：由 Neovim 启动流程（通常 init.lua）require 本文件，属于最早执行的
+            用户配置之一；决定后续几乎所有插件如何安装、懒加载与更新。
+  影响范围：全局——所有通过 lazy 管理的插件、启动性能、配色安装回退等。
+]]
+
+-- 若 data 目录下尚无 lazy.nvim，则从 GitHub stable 分支浅克隆一份。
+-- --filter=blob:none 减少初次克隆体积；失败则打印错误并退出，避免半残环境继续跑。
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   local lazyrepo = "https://github.com/folke/lazy.nvim.git"
@@ -10,75 +17,48 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
   if vim.v.shell_error ~= 0 then
     vim.api.nvim_echo({
       { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-      { out,                            "WarningMsg" },
+      { out, "WarningMsg" },
       { "\nPress any key to exit..." },
     }, true, {})
     vim.fn.getchar()
     os.exit(1)
   end
 end
+-- 把 lazy.nvim 放到 rtp 最前，才能 require("lazy")
 vim.opt.rtp:prepend(lazypath)
 
-vim.g.lazyvim_python_lsp = "pyrefly"
-
--- Plugin specification setup
 require("lazy").setup({
-  -- Specify plugins to load
   spec = {
-    -- Add LazyVim and import its default plugins
-    { "LazyVim/LazyVim",                                      import = "lazyvim.plugins" },
-    { import = "lazyvim.plugins.extras.lang.typescript" },
-    { import = "lazyvim.plugins.extras.lang.typescript.biome" },
-    { import = "lazyvim.plugins.extras.lang.json" },
-    { import = "lazyvim.plugins.extras.lang.python" },
-    { import = "lazyvim.plugins.extras.lang.rust" },
-    { import = "lazyvim.plugins.extras.lang.go" },
-    { import = "lazyvim.plugins.extras.lang.cmake" },
-    { import = "lazyvim.plugins.extras.lang.docker" },
-    { import = "lazyvim.plugins.extras.lang.yaml" },
-    { import = "lazyvim.plugins.extras.lang.markdown" },
-    { import = "lazyvim.plugins.extras.ui.mini-animate" },
-    -- Import/override with your custom plugins
+    -- 拉取 LazyVim 本体，并 import 其默认插件集（LSP、UI、编辑增强等）
+    { "LazyVim/LazyVim", import = "lazyvim.plugins" },
+    -- 再导入本仓库 lua/plugins/ 下的规格，用于覆盖或追加插件
     { import = "plugins" },
   },
-
-  -- Default settings for all plugins
   defaults = {
-    -- By default, only LazyVim plugins will be lazy-loaded.
-    -- Your custom plugins will load during startup.
-    -- Set to `true` to have all custom plugins lazy-loaded by default.
-    lazy = true,
-    -- It's recommended to leave version=false for now, since a lot the plugin
-    -- that support versioning, have outdated releases, which may break your
-    -- Neovim install.
+    -- LazyVim 自带插件默认懒加载；自定义插件默认启动时加载。
+    -- 设为 true 可让自定义插件也默认懒加载（需各规格自行声明触发条件）。
+    lazy = false,
+    -- 默认跟最新 git commit，避免部分插件 semver 过旧导致安装后行为异常。
     version = false, -- always use the latest git commit
-    -- version = "*", -- try installing the latest stable version for plugins
-    -- that support semver
+    -- version = "*", -- try installing the latest stable version for plugins that support semver
   },
-
-  -- Plugin installation settings
   install = {
-    -- Automatically install colorschemes when LazyVim starts
+    -- 首次安装/缺少配色时优先尝试 catppuccin，避免短暂无主题白屏
     colorscheme = { "catppuccin" },
   },
-
-  -- Plugin update checking
   checker = {
-    -- Enable or disable automatic plugin update checking
-    enabled = true,
-    -- Notify on update (set to false to disable notifications)
-    notify = false,
-  }, -- automatically check for plugin updates
-
-  -- Performance settings
+    enabled = true, -- 后台周期性检查插件更新
+    notify = false, -- 有更新时不弹通知，避免打断编辑流；可在 Lazy UI 里查看
+  },
   performance = {
-    -- Disable some built-in RTP plugins for improved startup speed
     rtp = {
+      -- 禁用不常用的内置 rtp 插件，略减启动与 rtp 扫描开销。
+      -- 被注释的项保留启用（如 matchparen），按需再关掉。
       disabled_plugins = {
-        -- "gzip",         -- Compression plugin
-        -- "matchit",      -- Matchit plugin for :%s
-        -- "matchparen",   -- Match paren highlighting
-        -- "netrwPlugin",  -- Netrw plugin
+        "gzip",
+        -- "matchit",
+        -- "matchparen",
+        -- "netrwPlugin",
         "tarPlugin",
         "tohtml",
         "tutor",
