@@ -39,7 +39,7 @@ require("lazy").setup({
     -- 设为 true 可让自定义插件也默认懒加载（需各规格自行声明触发条件）。
     lazy = true,
     -- 默认跟最新 git commit，避免部分插件 semver 过旧导致安装后行为异常。
-    version = true, -- always use the latest git commit
+    version = false, -- always use the latest git commit
     -- version = "*", -- try installing the latest stable version for plugins that support semver
   },
   install = {
