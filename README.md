@@ -5,7 +5,7 @@
 ## Overview
 
 Neovim configuration based on LazyVim with catppuccin, blink.cmp, Snacks picker,
-and language extras for TypeScript (biome), Python (pyrefly), Rust, Go, and more.
+and language extras for TypeScript (oxfmt), Python (pyrefly), Rust, Go, and more.
 
 ## Installation
 
@@ -59,7 +59,7 @@ nvim --headless "+Lazy! sync" +qa
 
 ### Language extras (`lazyvim.json`)
 
-typescript (+ biome), json, python (pyrefly), rust, go, cmake, docker, yaml, markdown, toml (taplo)
+typescript (+ oxfmt), json, python (pyrefly), rust, go, cmake, docker, yaml, markdown, toml (taplo)
 
 ### Other extras (`lazyvim.json`)
 
